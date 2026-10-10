@@ -58,14 +58,14 @@ function validarDados(dados) {
   }
 
   // Array.from permite contar também caracteres como emojis corretamente.
-  if (Array.from(nome).length > 30) {
-    throw new HttpError(400, 'O nome deve ter no máximo 30 caracteres.');
+  if (Array.from(nome).length > 50) {
+    throw new HttpError(400, 'O nome deve ter no máximo 50 caracteres.');
   }
-  if (Array.from(email).length > 40) {
-    throw new HttpError(400, 'O email deve ter no máximo 40 caracteres.');
+  if (Array.from(email).length > 50) {
+    throw new HttpError(400, 'O email deve ter no máximo 50 caracteres.');
   }
-  if (Array.from(setor).length > 15) {
-    throw new HttpError(400, 'O setor deve ter no máximo 15 caracteres.');
+  if (Array.from(setor).length > 30) {
+    throw new HttpError(400, 'O setor deve ter no máximo 30 caracteres.');
   }
 
   validarEmail(email);

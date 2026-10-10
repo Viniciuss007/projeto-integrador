@@ -1,6 +1,45 @@
+# Dependências e caches
 node_modules/
+.npm/
+.cache/
+.eslintcache
+
+# Variáveis de ambiente (mantém o exemplo)
 .env
 .env.*
 !.env.example
+
+# Logs
+logs/
+*.log
 npm-debug.log*
-test/
+yarn-debug.log*
+yarn-error.log*
+
+# Cobertura de testes e arquivos gerados
+coverage/
+.nyc_output/
+dist/
+build/
+*.tsbuildinfo
+
+# Arquivos temporários
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+*~
+
+# Configurações locais de editores
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini

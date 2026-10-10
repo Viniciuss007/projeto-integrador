@@ -1,6 +1,8 @@
 # Helpdesk API
 
-API desenvolvida para o projeto de estudos de um sistema de helpdesk. Por enquanto, permite consultar as categorias e os técnicos cadastrados no banco de dados.
+API desenvolvida para o projeto de estudos de um sistema de helpdesk. Permite consultar categorias e técnicos e realizar o CRUD completo de solicitantes.
+
+O projeto utiliza arquitetura em camadas: routes, controllers, services e models. Mais detalhes estão no [guia da sprint 2](docs/sprint2.md).
 
 ## Tecnologias utilizadas
 
@@ -43,9 +45,26 @@ Mantenha o terminal aberto. Se alterar o código, pare o servidor com `Ctrl+C` e
 | --- | --- | --- |
 | GET | `/categorias` | Consulta as categorias cadastradas |
 | GET | `/tecnicos` | Consulta os técnicos cadastrados |
+| GET | `/solicitantes` | Lista os solicitantes |
+| GET | `/solicitantes/:id` | Busca um solicitante pelo ID |
+| POST | `/solicitantes` | Cadastra um solicitante |
+| PUT | `/solicitantes/:id` | Atualiza um solicitante |
+| DELETE | `/solicitantes/:id` | Exclui um solicitante |
 
 Com a configuração padrão, a API fica disponível em `http://localhost:3000`.
 
-Para testar as consultas, use o navegador, o Postman ou o arquivo `requests/api.rest` com a extensão REST Client do VS Code.
+POST e PUT exigem `nome`, `email` e `setor` em JSON, com limites de 30, 40 e 15 caracteres, respectivamente. O email deve ter formato válido e ser único.
 
-As respostas são listas em JSON. Se a tabela estiver vazia, a API retorna `[]`.
+As consultas e atualizações retornam `200`, o cadastro retorna `201` e a exclusão retorna `204`, sem corpo. Listagens vazias retornam `[]`.
+
+Dados inválidos retornam `400`; registros não encontrados, `404`; email duplicado ou exclusão de solicitante com chamados vinculados, `409`.
+
+## Como testar
+
+Use o Postman ou a extensão REST Client do VS Code. As requisições estão separadas na pasta `requests`:
+
+- `categorias.rest`: consulta de categorias.
+- `tecnicos.rest`: consulta de técnicos.
+- `solicitantes.rest`: CRUD de solicitantes e exemplos de erros.
+
+Cada arquivo possui uma variável `@baseUrl`. Em `solicitantes.rest`, altere `@id` para escolher o registro usado na busca, atualização e exclusão.

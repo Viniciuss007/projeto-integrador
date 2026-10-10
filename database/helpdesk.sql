@@ -1,26 +1,29 @@
-create database helpdesk_api;
+create database helpdesk_api
+ 	CHARACTER SET utf8mb4
+  	COLLATE utf8mb4_unicode_ci;
+
  use helpdesk_api;
 
-create table solicitantes (
+create table IF NOT EXISTS solicitantes (
 	id int auto_increment primary key,
-	nome varchar(30) not null,
-	email varchar(40) not null unique,
-	setor varchar(15) not null
+	nome varchar(50) not null,
+	email varchar(50) not null unique,
+	setor varchar(30) not null
 );
 
-create table categorias(
+create table IF NOT EXISTS categorias(
 	id int auto_increment primary key,
-	nome varchar(15) not null,
+	nome varchar(20) not null,
 	descricao varchar (100) not null
 );
 
-create table tecnicos(
+create table IF NOT EXISTS tecnicos(
 	id int not null auto_increment primary key,
-	nome varchar(30) not null,
-	email varchar(40) not null unique
+	nome varchar(50) not null,
+	email varchar(50) not null unique
 );
 
-create table chamados (
+create table IF NOT EXISTS chamados (
 	id int auto_increment primary key not null,
 	titulo varchar(50) not null,
 	descricao text not null,

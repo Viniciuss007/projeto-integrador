@@ -1,0 +1,61 @@
+@baseUrl = http://localhost:3000
+
+# Altere este valor para o ID do solicitante que deseja consultar ou modificar.
+# Você pode obter o ID na listagem ou na resposta do cadastro.
+@id = 10
+
+### Listar solicitantes (200)
+GET {{baseUrl}}/solicitantes
+Accept: application/json
+
+### Buscar solicitante pelo ID definido acima (200 ou 404)
+GET {{baseUrl}}/solicitantes/{{id}}
+Accept: application/json
+
+### Criar solicitante (201): use um email ainda não cadastrado
+POST {{baseUrl}}/solicitantes
+Content-Type: application/json
+
+{
+  "nome": "Ana Teste",
+  "email": "ana.sprint2@example.com",
+  "setor": "TI"
+}
+
+### Atualizar o solicitante do ID definido acima (200 ou 404)
+PUT {{baseUrl}}/solicitantes/{{id}}
+Content-Type: application/json
+
+{
+  "nome": "Ana Atualizada",
+  "email": "ana.sprint2@example.com",
+  "setor": "Suporte"
+}
+
+### Excluir o solicitante do ID definido acima (204 sem corpo ou 404)
+DELETE {{baseUrl}}/solicitantes/{{id}}
+
+### Teste: campo obrigatório ausente (400)
+POST {{baseUrl}}/solicitantes
+Content-Type: application/json
+
+{
+  "nome": "Ana",
+  "email": "ana@example.com"
+}
+
+### Teste: ID inválido (400) — valor propositalmente fixo
+GET {{baseUrl}}/solicitantes/abc
+
+### Teste: email duplicado (409 se o email abaixo já estiver cadastrado)
+POST {{baseUrl}}/solicitantes
+Content-Type: application/json
+
+{
+  "nome": "Outra pessoa",
+  "email": "ana.sprint2@example.com",
+  "setor": "TI"
+}
+
+### Teste: depois de excluir, consulte o mesmo ID (404)
+GET {{baseUrl}}/solicitantes/{{id}}

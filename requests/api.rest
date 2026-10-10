@@ -1,9 +1,0 @@
-@baseUrl = http://localhost:3000
-
-### Consultar categorias cadastradas
-GET {{baseUrl}}/categorias
-Accept: application/json
-
-### Consultar técnicos cadastrados
-GET {{baseUrl}}/tecnicos
-Accept: application/json

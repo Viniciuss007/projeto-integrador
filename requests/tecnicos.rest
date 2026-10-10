@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:3000
+
+### Consultar técnicos cadastrados (200)
+GET {{baseUrl}}/tecnicos
+Accept: application/json

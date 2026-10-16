@@ -28,7 +28,7 @@ create table IF NOT EXISTS chamados (
 	titulo varchar(50) not null,
 	descricao text not null,
 	pioridade varchar (10) not null,
-	status varchar(15) not null,
+	status varchar(20) not null default 'ABERTO',
 	solucao text,
 	criado_em datetime default CURRENT_TIMESTAMP(),
 	solicitante_id int not null,

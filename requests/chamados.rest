@@ -1,0 +1,71 @@
+@baseUrl = http://localhost:3000
+@id = 1
+@solicitanteId = 64
+@categoriaId = 105
+
+# Prioridades: BAIXA, MEDIA ou ALTA.
+# Status: ABERTO, EM_ANDAMENTO ou CONCLUIDO.
+# No cadastro, o sistema sempre define ABERTO.
+
+### Listar chamados com solicitante, setor, categoria e técnico (200)
+GET {{baseUrl}}/chamados
+
+### Buscar chamado pelo ID configurado acima (200 ou 404)
+GET {{baseUrl}}/chamados/{{id}}
+
+### Criar chamado (201): configure IDs de solicitante e categoria existentes
+POST {{baseUrl}}/chamados
+Content-Type: application/json
+
+{
+  "titulo": "Computador não liga",
+  "descricao": "Ao pressionar o botão, o computador não inicia.",
+  "prioridade": "ALTA",
+  "solicitante_id": {{solicitanteId}},
+  "categoria_id": {{categoriaId}}
+}
+
+### Título ausente (400)
+POST {{baseUrl}}/chamados
+Content-Type: application/json
+
+{
+  "descricao": "Computador não inicia.",
+  "prioridade": "ALTA",
+  "solicitante_id": {{solicitanteId}},
+  "categoria_id": {{categoriaId}}
+}
+
+### ID inválido (400)
+GET {{baseUrl}}/chamados/abc
+
+### Prioridade não permitida (400)
+POST {{baseUrl}}/chamados
+Content-Type: application/json
+
+{
+  "titulo": "Computador não liga",
+  "descricao": "Teste de prioridade inválida.",
+  "prioridade": "URGENTE",
+  "solicitante_id": {{solicitanteId}},
+  "categoria_id": {{categoriaId}}
+}
+
+### Status não permitido (400)
+POST {{baseUrl}}/chamados
+Content-Type: application/json
+
+{
+  "titulo": "Computador não liga",
+  "descricao": "Teste de status inválido.",
+  "prioridade": "ALTA",
+  "status": "FECHADO",
+  "solicitante_id": {{solicitanteId}},
+  "categoria_id": {{categoriaId}}
+}
+
+### Consultar IDs disponíveis antes de cadastrar um chamado
+GET {{baseUrl}}/solicitantes
+
+### Consultar categorias disponíveis
+GET {{baseUrl}}/categorias

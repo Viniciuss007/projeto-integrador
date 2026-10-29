@@ -8,6 +8,14 @@ async function listar() {
   return categorias;
 }
 
-module.exports = { listar };
+async function buscarPorId(id) {
+  const [categorias] = await database.execute(
+    'SELECT id, nome, descricao FROM categorias WHERE id = ?',
+    [id]
+  );
+  return categorias[0];
+}
+
+module.exports = { listar, buscarPorId };
 
 // aqui ent depois faço os post, put e delete, mas por enquanto só o get.

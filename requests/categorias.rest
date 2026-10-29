@@ -3,3 +3,13 @@
 ### Consultar categorias cadastradas (200)
 GET {{baseUrl}}/categorias
 Accept: application/json
+
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+{
+    "id": 1,
+    "nome": "Hardware",
+    "descricao": "Problemas relacionados a componentes físicos do computador."
+}
+
+//tem que fazer todo controller, todo model e enfim, o processo em camadas para fazer este post

@@ -16,6 +16,12 @@ function errorHandler(error, req, res, next) {
   if (error.code === 'ER_DUP_ENTRY') {
     return res.status(409).json({ mensagem: 'Já existe um solicitante com este email.' });
   }
+  // Proteção caso um vínculo seja removido entre a validação e o INSERT.
+  if (error.code === 'ER_NO_REFERENCED_ROW_2') {
+    return res.status(409).json({
+      mensagem: 'Um dos registros vinculados não existe mais. Confira os IDs informados.'
+    });
+  }
   if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.code === 'ER_ROW_IS_REFERENCED') {
     return res.status(409).json({
       mensagem: 'Não é possível excluir um solicitante com chamados vinculados.'

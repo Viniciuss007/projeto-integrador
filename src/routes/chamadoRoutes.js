@@ -7,5 +7,7 @@ const router = express.Router();
 router.get('/', chamadoController.listar);
 router.get('/:id', chamadoController.buscarPorId);
 router.post('/', chamadoController.criar);
+router.put('/:id', chamadoController.atualizar);
+router.delete('/:id', chamadoController.excluir);
 
 module.exports = router;

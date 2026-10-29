@@ -14,6 +14,9 @@ function errorHandler(error, req, res, next) {
     return res.status(413).json({ mensagem: 'O corpo da requisição excede o tamanho permitido.' });
   }
   if (error.code === 'ER_DUP_ENTRY') {
+    if (req.path.startsWith('/tecnicos')) {
+      return res.status(409).json({ mensagem: 'Já existe um técnico com este email.' });
+    }
     return res.status(409).json({ mensagem: 'Já existe um solicitante com este email.' });
   }
   // Proteção caso um vínculo seja removido entre a validação e o INSERT.
@@ -23,6 +26,12 @@ function errorHandler(error, req, res, next) {
     });
   }
   if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.code === 'ER_ROW_IS_REFERENCED') {
+    if (req.path.startsWith('/categorias')) {
+      return res.status(409).json({ mensagem: 'Não é possível excluir uma categoria com chamados vinculados.' });
+    }
+    if (req.path.startsWith('/tecnicos')) {
+      return res.status(409).json({ mensagem: 'Não é possível excluir um técnico com chamados vinculados.' });
+    }
     return res.status(409).json({
       mensagem: 'Não é possível excluir um solicitante com chamados vinculados.'
     });

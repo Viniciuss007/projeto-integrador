@@ -1,5 +1,42 @@
 @baseUrl = http://localhost:3000
+# Escolha o ID retornado pelo cadastro ou pela listagem.
+@id = 1
 
-### Consultar técnicos cadastrados (200)
+### Listar (200)
 GET {{baseUrl}}/tecnicos
-Accept: application/json
+
+### Buscar pelo ID (200 ou 404)
+GET {{baseUrl}}/tecnicos/{{id}}
+
+### Cadastrar (201)
+POST {{baseUrl}}/tecnicos
+Content-Type: application/json
+
+{
+  "nome": "João Teste",
+  "email": "joao.tecnico@example.com"
+}
+
+### Atualizar: envie os dois campos (200 ou 404)
+PUT {{baseUrl}}/tecnicos/{{id}}
+Content-Type: application/json
+
+{
+  "nome": "Ana Teste",
+  "email": "ana.tecnico@example.com"
+}
+
+### Campos obrigatórios ausentes (400)
+POST {{baseUrl}}/tecnicos
+Content-Type: application/json
+
+{}
+
+### ID inválido (400)
+GET {{baseUrl}}/tecnicos/abc
+
+### Excluir (204): bloqueado com 409 se houver chamados vinculados
+DELETE {{baseUrl}}/tecnicos/{{id}}
+
+### Após excluir, a busca retorna 404
+GET {{baseUrl}}/tecnicos/{{id}}

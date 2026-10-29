@@ -16,6 +16,26 @@ async function buscarPorId(id) {
   return categorias[0];
 }
 
-module.exports = { listar, buscarPorId };
+async function criar(dados) {
+  const [resultado] = await database.execute(
+    'INSERT INTO categorias (nome, descricao) VALUES (?, ?)',
+    [dados.nome, dados.descricao]
+  );
+  return resultado.insertId;
+}
 
-// aqui ent depois faço os post, put e delete, mas por enquanto só o get.
+async function atualizar(id, dados) {
+  const [resultado] = await database.execute(
+    'UPDATE categorias SET nome = ?, descricao = ? WHERE id = ?',
+    [dados.nome, dados.descricao, id]
+  );
+  return resultado.affectedRows;
+}
+
+async function excluir(id) {
+  const [resultado] = await database.execute('DELETE FROM categorias WHERE id = ?', [id]);
+  return resultado.affectedRows;
+}
+
+module.exports = { listar, buscarPorId, criar, atualizar, excluir };
+

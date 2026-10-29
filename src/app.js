@@ -2,8 +2,8 @@ const express = require('express');
 const categoriaRoutes = require('./routes/categoriaRoutes');
 const tecnicoRoutes = require('./routes/tecnicoRoutes');
 const solicitanteRoutes = require('./routes/solicitanteRoutes');
-const chamadoRoutes = require('./routes/chamadoRoutes');
 const errorHandler = require('./middlewares/errorHandler');
+const chamadoRoutes = require('./routes/chamadoRoutes');
 
 const app = express();
 

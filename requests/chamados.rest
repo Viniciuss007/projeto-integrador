@@ -1,10 +1,11 @@
 @baseUrl = http://localhost:3000
 @id = 1
-@solicitanteId = 64
-@categoriaId = 105
+@solicitanteId = 1
+@categoriaId = 1
+@tecnicoId = 1
 
 # Prioridades: BAIXA, MEDIA ou ALTA.
-# Status: ABERTO, EM_ANDAMENTO ou CONCLUIDO.
+# Status: ABERTO, EM_ATENDIMENTO ou CONCLUIDO.
 # No cadastro, o sistema sempre define ABERTO.
 
 ### Listar chamados com solicitante, setor, categoria e técnico (200)
@@ -69,3 +70,64 @@ GET {{baseUrl}}/solicitantes
 
 ### Consultar categorias disponíveis
 GET {{baseUrl}}/categorias
+
+### Consultar técnicos e escolher @tecnicoId
+GET {{baseUrl}}/tecnicos
+
+### Sprint 4: alterar somente a prioridade (200)
+PUT {{baseUrl}}/chamados/{{id}}
+Content-Type: application/json
+
+{
+  "prioridade": "MEDIA"
+}
+
+### Atribuir técnico e iniciar atendimento (200)
+PUT {{baseUrl}}/chamados/{{id}}
+Content-Type: application/json
+
+{
+  "tecnico_id": {{tecnicoId}},
+  "status": "EM_ATENDIMENTO"
+}
+
+### Registrar solução e concluir (200)
+PUT {{baseUrl}}/chamados/{{id}}
+Content-Type: application/json
+
+{
+  "status": "CONCLUIDO",
+  "solucao": "Fonte substituída e computador testado."
+}
+
+### Tentar atendimento sem técnico (400)
+PUT {{baseUrl}}/chamados/{{id}}
+Content-Type: application/json
+
+{
+  "tecnico_id": null,
+  "status": "EM_ATENDIMENTO"
+}
+
+### Tentar concluir sem solução (400)
+PUT {{baseUrl}}/chamados/{{id}}
+Content-Type: application/json
+
+{
+  "status": "CONCLUIDO",
+  "solucao": ""
+}
+
+### Status fora do padrão do documento (400)
+PUT {{baseUrl}}/chamados/{{id}}
+Content-Type: application/json
+
+{
+  "status": "EM_ANDAMENTO"
+}
+
+### Excluir o chamado escolhido em @id (204 sem corpo): execute por último
+DELETE {{baseUrl}}/chamados/{{id}}
+
+### Após excluir, esta busca retorna 404
+GET {{baseUrl}}/chamados/{{id}}

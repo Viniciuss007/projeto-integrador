@@ -36,4 +36,21 @@ async function criar(dados) {
   return resultado.insertId;
 }
 
-module.exports = { listar, buscarPorId, criar };
+async function atualizar(id, dados, anterior) {
+  // Só atualiza se os dados ainda forem os mesmos que o service validou.
+  // <=> compara também valores NULL (por exemplo, técnico ainda não atribuído).
+  const [resultado] = await database.execute(
+    `UPDATE chamados SET pioridade = ?, tecnico_id = ?, status = ?, solucao = ?
+     WHERE id = ? AND pioridade = ? AND tecnico_id <=> ? AND status = ? AND solucao <=> ?`,
+    [dados.prioridade, dados.tecnico_id, dados.status, dados.solucao, id,
+      anterior.prioridade, anterior.tecnico_id, anterior.status, anterior.solucao]
+  );
+  return resultado.affectedRows;
+}
+
+async function excluir(id) {
+  const [resultado] = await database.execute('DELETE FROM chamados WHERE id = ?', [id]);
+  return resultado.affectedRows;
+}
+
+module.exports = { listar, buscarPorId, criar, atualizar, excluir };

@@ -2,7 +2,7 @@
 
 # Altere este valor para o ID do solicitante que deseja consultar ou modificar.
 # Você pode obter o ID na listagem ou na resposta do cadastro.
-@id = 10
+@id = 1
 
 ### Listar solicitantes (200)
 GET {{baseUrl}}/solicitantes

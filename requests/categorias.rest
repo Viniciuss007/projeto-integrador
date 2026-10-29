@@ -1,15 +1,42 @@
 @baseUrl = http://localhost:3000
+# Escolha o ID retornado pelo cadastro ou pela listagem.
+@id = 2
 
-### Consultar categorias cadastradas (200)
+### Listar (200)
 GET {{baseUrl}}/categorias
-Accept: application/json
 
+### Buscar pelo ID (200 ou 404)
+GET {{baseUrl}}/categorias/{{id}}
+
+### Cadastrar (201)
 POST {{baseUrl}}/categorias
 Content-Type: application/json
+
 {
-    "id": 1,
-    "nome": "Hardware",
-    "descricao": "Problemas relacionados a componentes físicos do computador."
+  "nome": "Pagamentos",
+  "descricao": "Erros no calculo de pagamentos."
 }
 
-//tem que fazer todo controller, todo model e enfim, o processo em camadas para fazer este post
+### Atualizar: envie os dois campos (200 ou 404)
+PUT {{baseUrl}}/categorias/{{id}}
+Content-Type: application/json
+
+{
+  "nome": "Hardware",
+  "descricao": "Problemas em equipamentos."
+}
+
+### Campos obrigatórios ausentes (400)
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{}
+
+### ID inválido (400)
+GET {{baseUrl}}/categorias/abc
+
+### Excluir (204): bloqueado com 409 se houver chamados vinculados
+DELETE {{baseUrl}}/categorias/{{id}}
+
+### Após excluir, a busca retorna 404
+GET {{baseUrl}}/categorias/{{id}}
